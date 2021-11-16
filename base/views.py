@@ -1,20 +1,13 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from .models import Room
 # Create your views here.
 
-room=[
-    {'id':1, 'name': 'Python Boys in the house' },
-    {'id':2, 'name': 'Machine Learning girls' },
-    {'id':3, 'name': 'Tensorflow bosses' }
-]
 
 
 def homepage(request):
+    room = Room.objects.all()
     return render(request,'base/home.html', {'room':room} )
 
 def roompage(request, pk):
-    room1 = None
-    for i in room:
-        if i['id'] == int(pk):
-            room1 = i
+    room1 = Room.objects.get(id=pk)
     return render(request, 'base/room.html', {'room':room1} )
